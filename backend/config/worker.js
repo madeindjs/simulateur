@@ -9,7 +9,9 @@ agenda.define(TEST_TASK, async job => {
     console.log("*** TEST_TASK ***");
 });
 
-agenda.start().then(() => console.log("Agenda started"));
+agenda.on('ready', function () {
+    agenda.start();
+});
 
 
 module.exports = {
