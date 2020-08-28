@@ -1,3 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-mongoose.model('Simulation', new mongoose.Schema({}, { strict: false }));
+const simulationSchema = {
+    situation: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Situation"
+    }
+};
+
+mongoose.model("Simulation", new mongoose.Schema(simulationSchema, { strict: false }));

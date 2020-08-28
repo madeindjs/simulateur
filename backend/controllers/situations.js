@@ -61,12 +61,13 @@ exports.create = function(req, res, next) {
 };
 
 exports.openfiscaResponse = function(req, res, next) {
-    return openfisca.calculate(req.situation, function(err, result) {
+    return openfisca.calculate(req.situation, function(err, simulation) {
         if (err) return next(Object.assign(err, { _id: req.situation._id }));
 
-        Simulation.create(result)
+        simulation.situation = req.situation
+        Simulation.create(simulation)
 
-        res.send(Object.assign(result, { _id: req.situation._id }));
+        res.send(Object.assign(simulation, { _id: req.situation._id }));
     });
 };
 
