@@ -26,7 +26,7 @@ services:
     restart: always
     environment:
       MONGODB_URL: mongodb://mongo:27017/dds
-      OPENFISCA_URL: https://openfisca.mes-aides.org/
+      OPENFISCA_URL: http://openfisca:2000
     ports:
       - '8080:8080'
       - '9001:9001'
@@ -36,6 +36,13 @@ services:
       - mongo
     volumes:
       - ./:/usr/src/app
+
+  openfisca:
+    build:
+      dockerfile: './Dockerfile'
+      context: './openfisca'
+    environment:
+      OPENFISCA_BIND_HOST: 0.0.0.0:2000
 
 volumes:
   node_modules:
