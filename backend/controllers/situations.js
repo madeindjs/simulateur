@@ -1,7 +1,8 @@
-var _ = require('lodash');
-var openfisca = require('../lib/openfisca');
-var openfiscaTest = require('../lib/openfisca/test');
-var Situation = require('mongoose').model('Situation');
+const _ = require('lodash');
+const openfisca = require('../lib/openfisca');
+const openfiscaTest = require('../lib/openfisca/test');
+const Situation = require('mongoose').model('Situation');
+const Simulation = require('mongoose').model('Simulation');
 
 exports.situation = function(req, res, next, situationId) {
     if (situationId && situationId._id) {
@@ -62,6 +63,8 @@ exports.create = function(req, res, next) {
 exports.openfiscaResponse = function(req, res, next) {
     return openfisca.calculate(req.situation, function(err, result) {
         if (err) return next(Object.assign(err, { _id: req.situation._id }));
+
+        Simulation.create(result)
 
         res.send(Object.assign(result, { _id: req.situation._id }));
     });
