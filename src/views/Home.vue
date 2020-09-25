@@ -1,149 +1,248 @@
 <template>
   <div id="homepage">
-    <div class="container">
-      <main class="hero">
-        <div class="hero__container text-center">
-          <h1>
-            Évaluez vos droits à {{ prestationsNationalesCount + partenairesLocauxCount }} aides sociales.<br/>
-            En moins de 7 minutes.
-          </h1>
+    <section class="my-5 py-5 text-center">
+      <div class="wordslider mb-2">
+        <p>Est-ce que ça vaut le coup de</p>
+        <textra :data="words" :timer="3" filter="flip" :infinite="true" />
+      </div>
+      <bar-chart :chart-data="chartdata" :options="chartOptions"></bar-chart>
+    </section>
+    <section>
+      <div class="hero__container text-center">
+        <h1 class="d-none">Evaluez votre pouvoir d'achat si vos revenus changent.</h1>
 
-          <div>
-            <router-link
-              to="/experimentations"
-              v-bind:class="`button ${ctaSize} secondary`"
-              v-if="showExperiment"
-            >
-              🚀 Continuer l'expérimentation 🚀
-            </router-link>
-            <a v-bind:class="`button ${ctaSize} primary`"
-              v-on:click="newSituation()"
-            >
-              {{ctaLabel}}
-            </a>
-            <a v-bind:class="`button ${ctaSize} secondary`"
-              v-on:click="next()"
-              v-if="hasExistingSituation"
-            >
-              Reprendre la simulation
-            </a>
-          </div>
-          <p>Ce questionnaire en ligne simple vous donnera un montant mensuel pour chaque prestation et vous donnera accès aux démarches.</p>
-        </div>
-      </main>
-    </div>
+        <p>
+          $PROJECT_NAME va effectuer des simulations en faisant
+          évoluer vos revenus et ainsi calculer vos aides.
+        </p>
 
-    <div class="section">
-      <div class="container">
-        <div class="panel">
-          <h2 class="text-center">
-            {{ prestationsNationalesCount }} aides nationales et {{ partenairesLocauxCount }} aides locales évaluées par le simulateur
-          </h2>
-          <div class="cta">
-            <router-link class="button secondary" to="/toutes">
-              Accéder à la liste
-            </router-link>
-            <router-link class="button secondary" to="/ameliorer#proposer-une-aide">
-              Proposer une nouvelle aide
-            </router-link>
-          </div>
+        <div>
+          <a class="btn btn-primary btn-lg" v-on:click="newSituation()">{{ ctaLabel }}</a>
+          <a
+            class="btn btn-primary btn-lg"
+            v-on:click="next()"
+            v-if="hasExistingSituation"
+          >Reprendre la simulation</a>
         </div>
       </div>
-    </div>
+    </section>
+    <p>
+      Ce simulateur s'appuie sur
+      {{ prestationsNationalesCount }} aides nationales et
+      {{ partenairesLocauxCount }} aides locales.
+      <small>
+        <router-link to="/toutes">Accéder à la liste</router-link>
+      </small>
+    </p>
+    <section class="my-5">
+      <h2>Question / réponses</h2>
+
+      <div class="qa">
+        <p class="qa__q">Comment être sûr que le calcul est correct ?</p>
+        <p class="qa__a">Cette application utilise le travail de deux choses:</p>
+        <ul>
+          <li>
+            <a href="https://fr.openfisca.org/legislationhttps://openfisca.org/en/">Openfisca</a>, un moteur de calcul libre et ouvert utilisé par
+            des chercheurs en économie et d’autres services
+            publics.
+          </li>
+          <li>
+            <a href="https://mes-aides.ord">mes-aides.org</a>,
+            une ancienne
+            <a
+              href="un moteur de calcul libre et ouvert utilisé par des chercheurs en économie et d’autres services publics."
+            >
+              startup d’État de l’Incubateur de services
+              numériques
+            </a>
+          </li>
+        </ul>
+      </div>
+      <button @click="changeDataset()">tets</button>
+      <div class="qa">
+        <p class="qa__q">
+          Je vous donnes des informations sensibles. Qu'en est'il
+          de la sécurité des données?
+        </p>
+        <p class="qa__a">
+          Notre formulaie ne requiert aucune information
+          personnelle permettant de relier votre situation à votre
+          iddentité. Ainsi, aucun nom, prénom aĝe ne vous est
+          demandé.
+        </p>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
-import Institution from '../lib/Institution'
-import _ from 'lodash'
+import Institution from "../lib/Institution";
+import _ from "lodash";
+import BarChart from "@/components/Charts/Bar";
+
+const labels = [
+  900,
+  1000,
+  1100,
+  1200,
+  1300,
+  1400,
+  1500,
+  1600,
+  1700,
+  1800,
+  1900,
+  2000,
+];
+
+const chartdataSample = {
+  labels,
+  datasets: [
+    {
+      label: "Revenu disponible",
+      backgroundColor: "green",
+      data: [777, 824, 871, 918, 957, 996, 1034, 1073, 1112, 1150, 1197, 1246],
+    },
+    {
+      label: "aides",
+      backgroundColor: "orange",
+      data: [332, 274, 251, 236, 206, 166, 126, 86, 46, 0, 0, 0],
+    },
+  ],
+  barPercentage: 1,
+};
 
 export default {
-  name: 'home',
+  name: "home",
+  components: {
+    BarChart,
+  },
   data: () => {
-    let value = {}
-    const types = ['prestationsNationales', 'partenairesLocaux']
-    types.forEach(function(type) {
-      let providersWithoutPrivatePrestations = _.mapValues(Institution[type], function(provider) {
-        provider = _.assign({}, provider)
-        provider.prestations = _.reduce(provider.prestations, function(prestations, prestation, name) {
-          if (! prestation.private) {
-            prestations[name] = prestation;
-          }
+    let value = {
+      words: [
+        "faire du freelance à côté.",
+        "faire 10 heures supplémentaire.",
+        "donner des cours de piano.",
+        "me mettre à mis-temps.",
+      ],
+      chartdata: chartdataSample,
+      chartOptions: {
+        maintainAspectRatio: false,
+        scales: {
+          xAxes: [
+            {
+              stacked: true,
+            },
+          ],
+          yAxes: [
+            {
+              stacked: true,
+            },
+          ],
+        },
+      },
+    };
+    const types = ["prestationsNationales", "partenairesLocaux"];
+    types.forEach(function (type) {
+      let providersWithoutPrivatePrestations = _.mapValues(
+        Institution[type],
+        function (provider) {
+          provider = _.assign({}, provider);
+          provider.prestations = _.reduce(
+            provider.prestations,
+            function (prestations, prestation, name) {
+              if (!prestation.private) {
+                prestations[name] = prestation;
+              }
 
-          return prestations
-        }, {});
-        return provider
-      })
+              return prestations;
+            },
+            {}
+          );
+          return provider;
+        }
+      );
 
-      value[type] = _.filter(providersWithoutPrivatePrestations, function(provider) { return _.size(provider.prestations) })
-      value[type + 'Count'] = Object.keys(value[type]).reduce(function(total, provider) {
-        return total + _.size(value[type][provider].prestations)
-      }, 0);
+      value[type] = _.filter(providersWithoutPrivatePrestations, function (
+        provider
+      ) {
+        return _.size(provider.prestations);
+      });
+      value[type + "Count"] = Object.keys(value[type]).reduce(function (
+        total,
+        provider
+      ) {
+        return total + _.size(value[type][provider].prestations);
+      },
+      0);
     });
 
-    value.showExperiment = Institution.experimentations.length
-
-    return value
+    return value;
   },
   computed: {
-    hasExistingSituation: function() {
-      return this.$store.getters.passSanityCheck
+    hasExistingSituation: function () {
+      return this.$store.getters.passSanityCheck;
     },
-    ctaLabel: function() {
-      return this.hasExistingSituation ? 'Commencer une nouvelle simulation' : 'Évaluer mes droits'
+    ctaLabel: function () {
+      return this.hasExistingSituation
+        ? "Commencer une nouvelle simulation"
+        : "Évaluer mes droits";
     },
-    ctaSize: function() {
-      return this.hasExistingSituation ? 'large' : 'xlarge'
-    }
+    ctaSize: function () {
+      return this.hasExistingSituation ? "large" : "xlarge";
+    },
   },
   methods: {
-    newSituation: function() {
-      this.$store.dispatch('clear', this.$route.query.external_id)
-      this.next()
+    changeDataset: function () {
+      const chartdata = { ...chartdataSample };
+
+      for (let i = 0; i < chartdata.datasets.length; i++) {
+        const offset = Math.random() * 300 - 150;
+        chartdata.datasets[i].data = chartdata.datasets[i].data
+          .map((d) => d + offset)
+          .map((d) => (d > 0 ? d : 0));
+      }
+
+      this.chartdata = chartdata;
     },
-    next: function() {
-      this.$push()
+    getRandomInt() {
+      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
     },
-  }
-}
+    newSituation: function () {
+      this.$store.dispatch("clear", this.$route.query.external_id);
+      this.next();
+    },
+    next: function () {
+      this.$push();
+    },
+  },
+  mounted() {
+    setInterval(this.changeDataset, 3750);
+  },
+};
 </script>
 
-<style scoped lang="scss">
-.xlarge, .xlarge:active {
-  font-size: 2em;
-  line-height: 1em;
+<style>
+.wordslider {
+    font-size: 24px;
+    font-weight: 800;
+}
+.wordslider p {
+  margin-bottom: 1rem;
+}
+.wordslider p,
+.wordslider .textra {
+    font-size: 1.5em;
 }
 
-#app {
-  height: 100%;
+.textra {
+    color: orange;
+}
+.qa {
+  margin-bottom: 1rem;
 }
 
-.cta {
-  display: flex;
-  justify-content: space-around;
-  align-items: stretch;
-}
-
-.hero {
-  background-color: #fffa;
-}
-
-.hero__container {
-  min-height: 55vh;
-}
-
-hr {
-  border-top: 1px solid #ddd;
-}
-
-#homepage {
-  background-attachment: fixed;
-  background-position: top center;
-  background-size: 100%;
-  background-repeat: no-repeat;
-}
-
-.panel {
-  border-color: #d45500;
+.qa__q {
+  font-weight: 800;
 }
 </style>
