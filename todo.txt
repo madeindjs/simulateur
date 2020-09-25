@@ -2,8 +2,10 @@
 x 2020-09-20 essayer de mettre des valeur vides dans les aides de la situation pour voir +aides
 ajouter socket pour le rechargement du graphique
 attendre la création de la situation pour le chargement du graphique
-améliorer le design
+x 2020-09-25 améliorer le design
 mettre une page statique pour améliorer le référencement
 (C) pouvoir choisir le type de prestation à faire varier (salaire ou activité freelance)
 (C) exporter sous forme de pdf
 faire une page pour retrouver toutes les simulations
+build docker image with nginx for production
+implémenter un système de paiement ou de dont
