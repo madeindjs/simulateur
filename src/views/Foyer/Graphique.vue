@@ -86,28 +86,40 @@
       ></bar-chart>
 
       <div
-        class="alert alert-warning print-hidden"
+        class="text-warning print-hidden"
         v-if="!ressourcesYearMinusTwoCaptured"
       >
-        <span>
-          <h2 v-if="droits && !droits.length">
-            Votre simulation n'a pas permis de découvrir de nouveaux droits.
-          </h2>
-          <i class="fa fa-warning text-warning" aria-hidden="true"></i>
+        <h2 v-if="droits && !droits.length">
+          Votre simulation n'a pas permis de découvrir de nouveaux droits.
+        </h2>
+        <p>
+          <i class="fa fa-warning" aria-hidden="true"></i>
 
           Nous avons supposé que vos ressources pour l’année
           {{ $store.state.dates.fiscalYear.label }} étaient les mêmes qu’entre
           {{ $store.state.dates.twelveMonthsAgo.label }} et
           {{ $store.state.dates.oneMonthAgo.label }}.
-        </span>
 
-        <router-link
-          class="button-outline warning text-center"
-          to="ressources/fiscales"
-          >Déclarez vos ressources
-          {{ $store.state.dates.fiscalYear.label }}</router-link
-        >
+          <router-link
+            class="button-outline warning text-center"
+            to="ressources/fiscales"
+          >
+            Déclarez vos ressources
+            {{ $store.state.dates.fiscalYear.label }}
+          </router-link>
+        </p>
       </div>
+
+      <table class="table">
+          <tr>
+              <th>Salaire mensuel</th>
+              <th>Revenu disponible</th>
+              <th>Aides</th>
+          </tr>
+          <tr v-for="(data, index) in datacollection" :key="index">
+              <td>{{data}}</td>
+          </tr>
+      </table>
     </div>
   </div>
 </template>

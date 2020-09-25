@@ -8,4 +8,5 @@ mettre une page statique pour améliorer le référencement
 (C) exporter sous forme de pdf
 faire une page pour retrouver toutes les simulations
 build docker image with nginx for production
-implémenter un système de paiement ou de dont
+implémenter un système de paiement ou de dons
+ajouter un tableau des données
