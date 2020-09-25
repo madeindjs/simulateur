@@ -158,8 +158,8 @@ function createSimulationJobs(situation) {
 
 SituationSchema.pre('save', function(next) {
     if (!this.isNew) { return next(); }
-    createSimulationJobs(situation);
     var situation = this;
+    createSimulationJobs(situation);
     utils.generateToken()
         .then(function(token) {
             situation.token = token;

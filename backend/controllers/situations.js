@@ -118,6 +118,12 @@ function getAverage(array) {
  * @param {NextFunction} next
  */
 exports.getSimulationsData = async function(req, res, next) {
+
+    console.log(req.situation)
+    if (req.situation?._id === undefined) {
+        return res.status(500).send("SituationId not defined");
+    }
+
     /**
      * @type {Array}
      */

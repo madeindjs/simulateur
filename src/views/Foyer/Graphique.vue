@@ -79,7 +79,7 @@
 
             <bar-chart
                 v-if="datacollection"
-                :chartdata="datacollection"
+                :chart-data="datacollection"
                 :options="chartOptions"
             ></bar-chart>
 
