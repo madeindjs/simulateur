@@ -37,14 +37,14 @@
 
       <button class="form-group button secondary" v-on:click.prevent="add">Ajouter une autre prestation pour laquelle vous connaissez le résultat</button>
 
-      <label class="form-group">Description courte
+      <label>Description courte
         <input
           placeholder="Les AL ne sont pas prises en compte dans le RSA"
           v-model="shortDescription"
         />
       </label>
 
-      <label class="form-group">Description détaillée
+      <label>Description détaillée
         <textarea
           rows="9"
           v-bind:placeholder="detailed"
@@ -52,7 +52,7 @@
         ></textarea>
       </label>
 
-      <label class="form-group">
+      <label>
         <input type="checkbox" v-model="consentGiven">
         J'accepte que les données de cette simulation soient visibles en ligne. Si les informations correspondent à une situation réelle, vous devriez <router-link to="/foyer/recapitulatif">les modifier</router-link>.
       </label>

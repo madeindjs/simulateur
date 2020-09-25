@@ -11,7 +11,7 @@
       </button>
       <div v-if="individu.display">
         <h2>{{ individu.label | capitalize }}</h2>
-        <label class="form-group" v-for="ressource in categoriesRnc" v-bind:key="ressource.id">
+        <label v-for="ressource in categoriesRnc" v-bind:key="ressource.id">
           {{ ressource.label }}
           <input type="number" v-select-on-click v-model="individu.values[ressource.id][$store.state.dates.fiscalYear.id]" />
           <span v-if="individu.default[ressource.id]"> Ce montant vaut {{ individu.default[ressource.id] }} pour les 12 derniers mois.</span>

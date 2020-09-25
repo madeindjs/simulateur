@@ -10,12 +10,12 @@
     </YesNoQuestion>
 
     <div class="form-group" v-if="hasTerrainsNonLoues">
-      <label class="form-group">
+      <label>
         Valeur <b>patrimoniale</b> totale de vos terrains <b>non loués</b>
         <input type="number" v-select-on-click v-model.number="demandeur.valeur_terrains_non_loues[periodKey]" />
       </label>
 
-      <label class="form-group">
+      <label>
         Valeur <b>locative</b> totale de vos terrains <b>non loués</b>
         <input type="number" v-select-on-click v-model.number="demandeur.valeur_locative_terrains_non_loues[periodKey]" />
       </label>
@@ -32,12 +32,12 @@
     </YesNoQuestion>
 
     <div class="form-group" v-if="hasBatisNonLoues">
-      <label class="form-group">
+      <label>
         Valeur <b>patrimoniale</b> de vos appartements/immeubles <b>non loués</b>
         <input type="number" v-select-on-click v-model.number="demandeur.valeur_immo_non_loue[periodKey]" />
       </label>
 
-      <label class="form-group">
+      <label>
         Valeur <b>locative</b> totale de vos appartements/immeubles <b>non loués</b>
         <input type="number" v-select-on-click v-model.number="demandeur.valeur_locative_immo_non_loue[periodKey]" />
       </label>
@@ -55,12 +55,12 @@
       Épargne
     </h2>
 
-    <label class="form-group">
+    <label>
       Livret A <span class="help-block">Aussi appelé Livret bleu.</span>
       <input type="number" v-select-on-click v-model.number="demandeur.livret_a[periodKey]" />
     </label>
 
-    <label class="form-group">
+    <label>
       Total des autres produits d'épargne produisant des revenus <b>non imposables</b>
       <input type="number" v-select-on-click v-model.number="demandeur.epargne_revenus_non_imposables[periodKey]" />
       <span>
@@ -76,7 +76,7 @@
       </span>
     </label>
 
-    <label class="form-group">
+    <label>
       Total de l'épargne produisant des revenus <b>imposables</b>
       <input type="number" v-select-on-click v-model.number="demandeur.epargne_revenus_imposables[periodKey]" />
       <span>

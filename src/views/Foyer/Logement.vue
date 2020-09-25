@@ -144,7 +144,7 @@
     </YesNoQuestion>
 
     <div class="form-group" v-if="captureCodePostal">
-      <label class="form-group" for="postal-code">Code postal </label>
+      <label for="postal-code">Code postal </label>
       <input
         id="postal-code"
         v-model="menage.code_postal"

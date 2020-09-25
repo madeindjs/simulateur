@@ -5,11 +5,7 @@
       <strong>depuis {{ $store.state.dates.twelveMonthsAgo.label }}</strong
       >, vous pourrez ensuite saisir les montants.
     </p>
-    <div
-      class="form-group col-6"
-      v-for="category in categories"
-      v-bind:key="category.id"
-    >
+    <section v-for="category in categories" v-bind:key="category.id">
       <h2>{{ category.label }}</h2>
       <div
         class="form-check"
@@ -21,7 +17,7 @@
           {{ type.label }}
         </label>
       </div>
-    </div>
+    </section>
     <div class="form-group">{{ countLabel }}</div>
     <div class="text-right">
       <button

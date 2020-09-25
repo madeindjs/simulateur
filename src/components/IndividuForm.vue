@@ -159,7 +159,7 @@
     >Remplirez-vous vous-même votre prochaine déclaration de revenus aux impôts ?</YesNoQuestion>
 
     <div class="form-group" v-if="captureScolarite">
-      <label class="form-group">Où sera-t-il/elle scolarisé·e à la rentrée prochaine ?</label>
+      <label>Où sera-t-il/elle scolarisé·e à la rentrée prochaine ?</label>
       <select v-model="individu.scolarite" class="form-control">
         <option
           v-for="scolarite in scolariteOptions"
