@@ -1,73 +1,104 @@
 <template>
   <div id="homepage">
-    <section class="my-5 py-5 text-center">
+    <section class="my-5 text-center">
       <div class="wordslider mb-4">
         <p>Est-ce que ça vaut le coup de</p>
         <textra :data="words" :timer="3" filter="flip" :infinite="true" />
       </div>
       <bar-chart :chart-data="chartdata" :options="chartOptions"></bar-chart>
     </section>
-    <section class="text-center lead">
-      <h1 class="d-none">Evaluez votre pouvoir d'achat si vos revenus changent.</h1>
-
-      <div class="my-5">
-        <a class="btn btn-primary btn-lg" v-on:click="newSituation()">{{ ctaLabel }}</a>
-        <a
-          class="btn btn-primary btn-lg"
-          v-on:click="next()"
-          v-if="hasExistingSituation"
-        >Reprendre la simulation</a>
-      </div>
+    <section class="text-center lead my-3">
+      <h1 class="d-none">
+        Evaluez votre pouvoir d'achat si vos revenus changent.
+      </h1>
+      <a class="btn btn-primary btn-lg" v-on:click="newSituation()">{{
+        ctaLabel
+      }}</a>
+      <a
+        class="btn btn-primary btn-lg"
+        v-on:click="next()"
+        v-if="hasExistingSituation"
+        >Reprendre la simulation</a
+      >
+    </section>
+    <hr class="my-5" />
+    <section class="lead">
       <p>
         $PROJECT_NAME va effectuer des <strong>simulations</strong> en faisant
         évoluer vos revenus et ainsi calculer vos aides.
       </p>
-      <p>
-        Ce simulateur s'appuie sur
-        {{ prestationsNationalesCount }} aides nationales et
-        {{ partenairesLocauxCount }} aides locales.
-      </p>
-      <p class="text-right">
-        <router-link to="/toutes" class="btn btn-link">Accéder à la liste</router-link>
-      </p>
+    </section>
+    <hr class="my-5" />
+    <section class="my-5">
+      <h2>Comment ça fonctionne ?</h2>
+      <ol class="lead">
+        <li>Vous remplissez le formulaire</li>
+        <li>
+          Nous effectuons plusieurs simulations auprès du
+          <a href="https://www.data.gouv.fr/fr/organizations/openfisca/"
+            >moteur de calcul des impôts</a
+          >
+          proposé par l'état
+        </li>
+        <li>Nous construisons un rapport personalisé</li>
+      </ol>
     </section>
     <hr class="my-5" />
     <section class="my-5">
       <h2>Question / réponses</h2>
 
-      <div class="qa">
-        <p class="qa__q">Comment être sûr que le calcul est correct ?</p>
-        <p class="qa__a">Cette application s'appuie sur le travail de</p>
-        <ul>
-          <li>
-            <a href="https://fr.openfisca.org/legislationhttps://openfisca.org/en/">Openfisca</a>, un moteur de calcul libre et ouvert utilisé par
-            des chercheurs en économie et d’autres services
-            publics.
-          </li>
-          <li>
-            <a href="https://mes-aides.ord">mes-aides.org</a>,
-            une ancienne
-            <a
-              href="un moteur de calcul libre et ouvert utilisé par des chercheurs en économie et d’autres services publics."
-            >
-              startup d’État de l’Incubateur de services
-              numériques
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="qa">
-        <p class="qa__q">
-          Je vous donnes des informations sensibles. Qu'en est'il
-          de la sécurité des données?
-        </p>
-        <p class="qa__a">
-          Notre formulaie ne requiert aucune information
-          personnelle permettant de relier votre situation à votre
-          iddentité. Ainsi, aucun nom, prénom aĝe ne vous est
-          demandé.
-        </p>
-      </div>
+      <p class="lead">Comment être sûr que le calcul est correct ?</p>
+      <p>Cette application s'appuie sur le travail de</p>
+      <ul>
+        <li>
+          <a href="https://fr.openfisca.org/legislation">Openfisca</a>, un
+          moteur de calcul libre et ouvert utilisé par des chercheurs en
+          économie et d’autres services publics.
+        </li>
+        <li>
+          <a href="https://mes-aides.ord">mes-aides.org</a>, une ancienne
+          <a
+            href="un moteur de calcul libre et ouvert utilisé par des chercheurs en économie et d’autres services publics."
+          >
+            startup d’État de l’Incubateur de services numériques
+          </a>
+        </li>
+      </ul>
+      <p class="lead">Quelles sont les aides prisent en compte ?</p>
+      <p>
+        Ce simulateur s'appuie sur
+        <router-link to="/toutes">
+          {{ prestationsNationalesCount }} aides nationales et
+          {{ partenairesLocauxCount }} aides locales. </router-link
+        >. La liste est en constante évolution gràce au projet
+        <a href="https://mes-aides.ord">mes-aides.org</a>. Vous pouvez
+        d'ailleurs
+        <a href="https://mes-aides.org/ameliorer">contribuer au projet</a>.
+      </p>
+      <p class="lead">
+        Qu'en est'il de la sécurité des données ?
+      </p>
+      <p>
+        Notre formulaie ne requiert aucune information personnelle permettant de
+        relier votre situation à votre iddentité.
+      </p>
+      <p>Aucun tracker n'est présent sur le site. Pas même Google Analytics.</p>
+      <p>
+        Notre formulaie ne requiert aucune information personnelle permettant de
+        relier votre situation à votre iddentité. Ainsi, aucun nom, prénom aĝe
+        ne vous est demandé.
+      </p>
+      <p>
+        Le code de cette application est aussi ouvert et
+        <a href="https://github.com/madeindjs/simulateur"
+          >consultable sur Github</a
+        >. Le code est sous
+        <a href="https://www.gnu.org/licenses/agpl-3.0.html">license libre</a>
+        ce qui signifie que vous pouvez l'éditer, le modifier et même le
+        redistribuer.
+      </p>
+      <p class="lead">Combien ça coute ?</p>
+      <p>TODO</p>
     </section>
   </div>
 </template>

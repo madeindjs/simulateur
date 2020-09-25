@@ -30,7 +30,7 @@
       </div>
 
       <form v-if="submitResult && !(submitResult.ok || submitResult.waiting || submitResult.error)">
-        <label class="form-group">Votre email<input name="email" v-model="email"></label>
+        <label>Votre email<input name="email" v-model="email"></label>
         <p class="alert alert-warning" v-if="$v.email.$error">
           Un email doit être indiqué.
         </p>

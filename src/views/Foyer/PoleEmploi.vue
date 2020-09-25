@@ -1,11 +1,11 @@
 <template>
   <form>
-    <label class="form-group">
+    <label>
       Salaire journalier de référence
       <input type="number" v-select-on-click v-model.number="salaire_journalier_reference">
     </label>
 
-    <label class="form-group">
+    <label>
       Temps de travail par semaine
       <input type="number" v-select-on-click v-model.number="temps_travail_semaine">
     </label>

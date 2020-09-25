@@ -1,7 +1,9 @@
 <template>
   <div class="main">
-    <div class="progress" v-bind:style="style" />
-    <div v-if="$store.state.message" class="main alert alert-warning full-width">
+    <div
+      v-if="$store.state.message"
+      class="main alert alert-warning full-width"
+    >
       <div class="message" v-html="$store.state.message" />
     </div>
     <div class="foyer">
@@ -13,8 +15,13 @@
             </h2>
           </router-link>
           <h1 v-html="title" />
+          <div class="progress" v-bind:style="style" />
         </div>
-        <router-link v-if="!isRecapitulatif" v-bind:to="recapitulatifLink" class="editor">
+        <router-link
+          v-if="!isRecapitulatif"
+          v-bind:to="recapitulatifLink"
+          class="editor"
+        >
           <h2 class="editor" aria-label="Modifier vos réponses">📝</h2>
         </router-link>
       </div>
@@ -109,6 +116,7 @@ export default {
 .main {
   flex: 1 0 auto;
   min-height: 85vh;
+  box-shadow: 0 0 30px 1px rgba(0, 0, 100, .2);
 }
 
 .main.notification {

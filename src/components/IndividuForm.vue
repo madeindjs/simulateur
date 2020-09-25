@@ -138,7 +138,7 @@
     >Est-il/elle placé·e en structure spécialisée ou famille d'accueil ?</YesNoQuestion>
 
     <div class="form-group" v-if="individu.etudiant">
-      <label class="form-group">
+      <label>
         À quel échelon {{ individu.role == 'demandeur' ? 'êtes-vous' : 'est-il/elle' }} boursier ?
         {{ individu.echelon_bourse == -1 ? 'Non boursier': 'Boursier échelon ' + individu.echelon_bourse }}
       </label>
@@ -159,7 +159,7 @@
     >Remplirez-vous vous-même votre prochaine déclaration de revenus aux impôts ?</YesNoQuestion>
 
     <div class="form-group" v-if="captureScolarite">
-      <label class="form-group">Où sera-t-il/elle scolarisé·e à la rentrée prochaine ?</label>
+      <label>Où sera-t-il/elle scolarisé·e à la rentrée prochaine ?</label>
       <select v-model="individu.scolarite" class="form-control">
         <option
           v-for="scolarite in scolariteOptions"
