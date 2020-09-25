@@ -116,6 +116,7 @@ export default {
 .main {
   flex: 1 0 auto;
   min-height: 85vh;
+  box-shadow: 0 0 30px 1px rgba(0, 0, 100, .2);
 }
 
 .main.notification {
