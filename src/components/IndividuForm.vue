@@ -138,7 +138,7 @@
     >Est-il/elle placé·e en structure spécialisée ou famille d'accueil ?</YesNoQuestion>
 
     <div class="form-group" v-if="individu.etudiant">
-      <label class="form-group">
+      <label>
         À quel échelon {{ individu.role == 'demandeur' ? 'êtes-vous' : 'est-il/elle' }} boursier ?
         {{ individu.echelon_bourse == -1 ? 'Non boursier': 'Boursier échelon ' + individu.echelon_bourse }}
       </label>

@@ -1,45 +1,47 @@
 <template>
-  <div class="row input-date">
-    <div v-if="showDay" class="col-4 px-1">
-      <input
-        type="number"
-        autofocus
-        v-bind:id="firstId"
-        class="form-control"
-        ref="day"
-        aria-label="Jour"
-        v-model="day"
-        placeholder="JJ"
-        v-select-on-click
-        min="1"
-        max="31"
-      />
-    </div>
-    <div class="col-4 px-1">
-      <input
-        type="number"
-        ref="month"
-        aria-label="Mois"
-        v-model="month"
-        placeholder="MM"
-        v-select-on-click
-        class="form-control"
-        min="1"
-        max="12"
-      />
-    </div>
-    <div class="col-4 px-1">
-      <input
-        type="number"
-        ref="year"
-        class="form-control"
-        aria-label="Année"
-        v-model="year"
-        placeholder="AAAA"
-        v-select-on-click
-        min="1900"
-        max="2020"
-      />
+  <div class="input-date pl-4">
+    <div class="row">
+      <div v-if="showDay" class="col-4 px-1">
+        <input
+          type="number"
+          autofocus
+          v-bind:id="firstId"
+          class="form-control"
+          ref="day"
+          aria-label="Jour"
+          v-model="day"
+          placeholder="JJ"
+          v-select-on-click
+          min="1"
+          max="31"
+        />
+      </div>
+      <div class="col-4 px-1">
+        <input
+          type="number"
+          ref="month"
+          aria-label="Mois"
+          v-model="month"
+          placeholder="MM"
+          v-select-on-click
+          class="form-control"
+          min="1"
+          max="12"
+        />
+      </div>
+      <div class="col-4 px-1">
+        <input
+          type="number"
+          ref="year"
+          class="form-control"
+          aria-label="Année"
+          v-model="year"
+          placeholder="AAAA"
+          v-select-on-click
+          min="1900"
+          max="2020"
+        />
+      </div>
     </div>
   </div>
 </template>
