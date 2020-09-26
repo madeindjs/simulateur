@@ -68,22 +68,17 @@
       </small>
     </div>
 
-    <div v-if="datacollection">
+    <div v-if="chartData">
       <p>
-        Nous avons réalisé {{ datacollection.labels.length }} simulations autour
-        de votre salaires. Cela donne donc des résultats pour un salaire mensuel
-        net allant de <strong>{{ datacollection.labels[0] }}€ / mois</strong> à
+        Nous avons réalisé {{ chartData.labels.length }} simulations autour de
+        votre salaires. Cela donne donc des résultats pour un salaire mensuel
+        net allant de <strong>{{ chartData.labels[0] }}€ / mois</strong> à
         <strong
-          >{{ datacollection.labels[datacollection.labels.length - 1] }}€ /
-          mois</strong
+          >{{ chartData.labels[chartData.labels.length - 1] }}€ / mois</strong
         >.
       </p>
 
-      <bar-chart
-        v-if="datacollection"
-        :chart-data="datacollection"
-        :options="chartOptions"
-      ></bar-chart>
+      <bar-chart :chart-data="chartData" :options="chartOptions"></bar-chart>
 
       <div
         class="text-warning print-hidden"
@@ -111,14 +106,16 @@
       </div>
 
       <table class="table">
-          <tr>
-              <th>Salaire mensuel</th>
-              <th>Revenu disponible</th>
-              <th>Aides</th>
-          </tr>
-          <tr v-for="(data, index) in datacollection" :key="index">
-              <td>{{data}}</td>
-          </tr>
+        <tr>
+          <th>Salaire mensuel <span class="text-muted">(€ / mois)</span></th>
+          <th>Revenu disponible <span class="text-muted">(€ / mois)</span></th>
+          <th>Aides <span class="text-muted">(€ / mois)</span></th>
+        </tr>
+        <tr v-for="(data, index) in tableData" :key="index">
+          <td>{{ data.salaireNet }}</td>
+          <td>{{ data.revenuDisponible }}</td>
+          <td>{{ data.aides }}</td>
+        </tr>
       </table>
     </div>
   </div>
@@ -126,8 +123,6 @@
 
 <script>
 import _ from "lodash";
-import DroitsList from "./../../components/DroitsList";
-import LineChart from "./../../components/Charts/Line";
 import BarChart from "./../../components/Charts/Bar";
 import axios from "axios";
 
@@ -139,7 +134,8 @@ export default {
       openfiscaAxeURL: false,
       showExpertLinks: false,
       showPrivate: false,
-      datacollection: null,
+      chartData: null,
+      tableData: null,
       chartOptions: {
         // height: '400px',
         // position: 'relative',
@@ -161,8 +157,6 @@ export default {
     };
   },
   components: {
-    DroitsList,
-    LineChart,
     BarChart,
   },
   computed: {
@@ -223,7 +217,7 @@ export default {
       return this.resultatStatus.error;
     },
     shouldDisplayResults: function () {
-      return Boolean(datacollection);
+      return Boolean(this.chartData);
     },
     error: function () {
       let value = this.resultatStatus.error && this.resultatStatus.exception;
@@ -271,7 +265,8 @@ export default {
           `api/situations/${this.$store.state.situation._id}/get-simulations-data`
         )
         .then((response) => {
-          this.datacollection = response.data;
+          this.chartData = response.data.chartData;
+          this.tableData = response.data.tableData;
         });
     },
   },

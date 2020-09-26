@@ -169,8 +169,11 @@ exports.getSimulationsData = async function(req, res, next) {
         labels: [],
         datasets: [],
         barPercentage: 1
-
     };
+    /**
+     * @type {Array<{salaireNet: number; aides: number; revenuDisponible: number}>}
+     */
+    const tableData = [];
 
     for (const result of results) {
         const aides = result.aides.droitsEligibles.filter(d => Number.isInteger(d.montant)).reduce((acc, d) => acc + Number(d.montant), 0)
@@ -185,6 +188,7 @@ exports.getSimulationsData = async function(req, res, next) {
         chartData.labels.push(salaireNet);
         revenuDisponibleDataset.data.push(revenuDisponible);
         aidesDataset.data.push(aides);
+        tableData.push({aides, salaireNet, revenuDisponible})
     }
 
     chartData.datasets = [
@@ -192,7 +196,7 @@ exports.getSimulationsData = async function(req, res, next) {
         aidesDataset
     ];
 
-    return res.json(chartData);
+    return res.json({chartData, tableData});
 };
 
 exports.openfiscaTrace = function(req, res, next) {
