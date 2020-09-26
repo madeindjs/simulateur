@@ -27,7 +27,7 @@
           <span class="card-icon fa fa-plus" aria-hidden="true" />
         </router-link>
       </div>
-      <div class="text-right">
+      <div class="text-right mt-5 pt-2 border-top">
         <button type="submit" class="btn btn-lg btn-primary" v-if="showValidate" v-on:click.prevent="next">Valider</button>
       </div>
     </form>
