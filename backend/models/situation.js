@@ -140,11 +140,27 @@ SituationSchema.methods.compute = function() {
     });
 };
 
+const STEP = 100
+
+SituationSchema.methods.jobsCount = function() {
+    console.log('jobsCount')
+    const { salaire_net } = this.demandeur
+    const salaire = Math.max(...Object.values(salaire_net))
+    const startSalaire = salaire * 0.5;
+    const endSalaire = salaire * 2;
+
+    let count = 0;
+
+    for (let i = startSalaire; i < endSalaire; i += STEP) {
+        count++;
+    }
+    return count;
+}
+
 /**
  * @returns {Number} qty of jobs created
  */
 function createSimulationJobs(situation) {
-    const STEP = 100
     const { salaire_net } = situation.demandeur
     const salaire = Math.max(...Object.values(salaire_net))
 

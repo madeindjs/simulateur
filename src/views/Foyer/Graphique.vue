@@ -38,6 +38,13 @@
     </div>
 
     <div v-if="chartData">
+      <p class="alert alert-success" v-if="complete === true">
+        Votre simulation est désormais complète.
+      </p>
+      <p class="alert alert-info" v-if="complete === false">
+        Nous sommes en train d'effectuer vos simulations. Les graphique vont se
+        recharger automatiquement. Veuillez patienter quelques secondes.
+      </p>
       <p>
         Le graphique ci-dessous montre votre revenu disponible et les aides pour
         chaque salaire mensuel net.
@@ -91,7 +98,6 @@
 
 <script>
 import _ from "lodash";
-import BarChart from "@/components/Charts/Bar";
 import SimulationTable from "@/components/SimulationTable";
 import SimulationChart from "@/components/SimulationChart";
 import SimulationDiffChart from "@/components/SimulationDiffChart";
@@ -108,6 +114,7 @@ export default {
       showPrivate: false,
       chartData: null,
       tableData: null,
+      complete: true,
     };
   },
   components: {
@@ -224,19 +231,22 @@ export default {
         .then((response) => {
           this.chartData = response.data.chartData;
           this.tableData = response.data.tableData;
+          this.complete = response.data.complete;
+
+          if (!response.data.complete) {
+            setTimeout(() => this.fillData(), 3000);
+          }
         });
     },
   },
   mounted: function () {
-    this.fillData();
-
     if (this.$route.query && this.$route.query.situationId) {
       if (this.$store.state.situation._id !== this.$route.query.situationId) {
         this.$store
           .dispatch("fetch", this.$route.query.situationId)
-          .then(() => this.$store.dispatch("fetchGraphique", this.showPrivate));
+          .then(() => this.fillData());
       } else if (!this.$store.getters.hasResults) {
-        this.$store.dispatch("fetchGraphique", this.showPrivate);
+        this.fillData();
       } // Else nothing to do
     } else if (!this.$store.getters.passSanityCheck) {
       return this.$store.dispatch("redirection", (route) =>
@@ -248,30 +258,15 @@ export default {
           if (this.$store.state.access.forbidden) {
             return;
           }
-          return this.$store.dispatch("fetchGraphique");
+          this.fillData();
+          // return this.$store.dispatch("fetchGraphique");
         });
-      } else if (!this.$store.getters.hasResults) {
+        // } else if (!this.$store.getters.hasResults) {
         // this.$store.dispatch("fetchGraphique");
+      } else {
+        this.fillData();
       }
     }
   },
 };
 </script>
-
-<style scoped lang="scss">
-h4 {
-  margin-top: 0.7em;
-}
-
-.container,
-.panel {
-  opacity: 1;
-}
-
-.injected .droit-detail-heading {
-  padding: 0;
-}
-.injected .droit-detail-description p {
-  margin: 0;
-}
-</style>

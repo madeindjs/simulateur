@@ -121,7 +121,8 @@ exports.getSimulationsData = async function(req, res, next) {
     if (req.situation?._id === undefined) {
         return res.status(500).send("SituationId not defined");
     }
-    const year = new Date().getFullYear().toString()
+    const year = new Date().getFullYear().toString();
+
 
     /**
      * @type {Array}
@@ -142,6 +143,7 @@ exports.getSimulationsData = async function(req, res, next) {
         )
         .sort({ "individus.demandeur.salaire_net": 1 })
         .toArray();
+    const complete = req.situation.jobsCount() === results.length;
 
     /**
      * @type {Chart.ChartDataSets}
@@ -181,7 +183,6 @@ exports.getSimulationsData = async function(req, res, next) {
         const demandeur = result.individus.demandeur;
 
         const salaireNet = getAverageObject(demandeur.salaire_net);
-        console.log(menage.revenu_disponible)
         const revenuDisponible = Math.floor(
             menage.revenu_disponible[year] / 12
         );
@@ -194,10 +195,10 @@ exports.getSimulationsData = async function(req, res, next) {
 
     chartData.datasets = [
         revenuDisponibleDataset,
-        aidesDataset
+        aidesDataset,
     ];
 
-    return res.json({chartData, tableData});
+    return res.json({chartData, tableData, complete});
 };
 
 exports.openfiscaTrace = function(req, res, next) {
