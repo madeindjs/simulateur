@@ -20,7 +20,7 @@
       </p>
       <ul>
         <li v-for="(step, index) in looseSteps" :key="index">
-          {{ step.previous.salaireNet }} à {{ step.next.salaireNet }} € / mois: vous "perdez" <strong>{{computeLoose(step)}} € /mois</strong>
+          {{ step.previous.salaireNet }} à {{ step.next.salaireNet }} € / mois: "perte" de <strong>{{computeLoose(step)}} € /mois</strong>
         </li>
       </ul>
     </div>
@@ -45,6 +45,7 @@
               >: {{ aide.montant }} €
             </li>
           </ul>
+          <span v-if="row.aidesList.length == 0" class="text-muted">aucune</span>
         </td>
       </tr>
     </table>

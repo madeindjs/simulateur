@@ -105,7 +105,7 @@ const router = new Router({
         path: 'graphique',
         component: () => import(/* webpackChunkName: "graohique" */ './views/Foyer/Graphique.vue'),
         meta: {
-          title: 'Graphique de votre situation'
+          title: 'Résultat de votre simulation'
         },
       }, {
         name: 'resultat',
