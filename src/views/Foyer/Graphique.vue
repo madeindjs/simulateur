@@ -26,46 +26,15 @@
     </div>
 
     <div id="error" class="alert alert-danger" v-if="hasError" role="alert">
-      <h2>
+      <p>
         <i class="fa fa-warning" aria-hidden="true"></i> Une erreur est
-        survenue.
-      </h2>
-      <p>
-        <a
-          v-mail="{
-            to: 'equipe@mes-aides.org',
-            subject: `[${resultatsId}] Problème technique`,
-            body: `Bonjour,
-
-    J'ai tenté de XXX,
-    Et en cliquant sur XXX,
-    J'ai rencontré l'erreur ci-dessous.
-
-    Je vous joins également une capture d'écran pour faciliter la compréhension du problème.
-
-    ————
-    ID : ${resultatsId}
-    User-agent : ${userAgent}
-    Erreur : ${error}
-    ————`,
-          }"
-          >Signalez ce problème</a
-        >
-        en décrivant ce que vous faisiez avant que cette erreur n'apparaisse, et
-        en joignant si possible une capture d'écran. Nous vous répondrons au
-        plus vite et corrigerons le problème dès que possible.
-      </p>
-
-      <p>
-        Pour ne pas perdre les données que vous avez déclarées, vous pouvez
-        garder cet onglet ouvert, puis actualiser la page une fois que le
+        survenue. Pour ne pas perdre les données que vous avez déclarées, vous
+        pouvez garder cet onglet ouvert, puis actualiser la page une fois que le
         problème sera résolu.
       </p>
 
-      <small>
-        Informations techniques :
-        <pre v-html="error"></pre>
-      </small>
+      <p>Informations techniques :</p>
+      <pre v-html="error"></pre>
     </div>
 
     <div v-if="chartData">
