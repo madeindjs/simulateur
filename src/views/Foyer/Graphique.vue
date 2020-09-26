@@ -38,17 +38,10 @@
     </div>
 
     <div v-if="chartData">
-      <p>
-        Nous avons réalisé {{ chartData.labels.length }} simulations autour de
-        votre salaires. Cela donne donc des résultats pour un salaire mensuel
-        net allant de <strong>{{ chartData.labels[0] }}€ / mois</strong> à
-        <strong
-          >{{ chartData.labels[chartData.labels.length - 1] }}€ / mois</strong
-        >.
-      </p>
-
       <SimulationChart :data="chartData"></SimulationChart>
 
+      <h2>Résumé de votre simulation</h2>
+      <SimulationSummary :data="tableData"></SimulationSummary>
       <div
         class="text-warning print-hidden"
         v-if="!ressourcesYearMinusTwoCaptured"
@@ -73,7 +66,6 @@
           </router-link>
         </p>
       </div>
-
       <h2>Détails de votre simulation</h2>
 
       <p>
@@ -92,6 +84,7 @@ import _ from "lodash";
 import BarChart from "@/components/Charts/Bar";
 import SimulationTable from "@/components/SimulationTable";
 import SimulationChart from "@/components/SimulationChart";
+import SimulationSummary from "@/components/SimulationSummary";
 import axios from "axios";
 
 export default {
@@ -109,6 +102,7 @@ export default {
   components: {
     SimulationTable,
     SimulationChart,
+    SimulationSummary,
   },
   computed: {
     droits: function () {
