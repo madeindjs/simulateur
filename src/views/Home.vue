@@ -96,10 +96,13 @@
         >. Le code est sous
         <a href="https://www.gnu.org/licenses/agpl-3.0.html">license libre</a>
         ce qui signifie que vous pouvez l'éditer, le modifier et même le
-        redistribuer.
+        redistribuer sous la même license.
       </p>
       <p class="lead">Combien ça coute ?</p>
-      <p>TODO</p>
+      <p>
+        $PROJECT_NAME est un projet libre et totalement gratuit. Considerez un
+        dont pour que soutenir le projet.
+      </p>
     </section>
   </div>
 </template>

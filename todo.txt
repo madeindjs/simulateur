@@ -12,3 +12,6 @@ x 2020-09-26 ajouter un tableau des données
 ajouter un graphique des différences
 x 2020-09-26 comprendre le prince de `revenu_disponible` => faux ?
 calculer le revenu disponible à la main
+modifier CGU
+modifier contact
+trouver un nom ()
