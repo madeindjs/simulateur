@@ -5,7 +5,7 @@
         <p>Est-ce que ça vaut le coup de</p>
         <textra :data="words" :timer="3" filter="flip" :infinite="true" />
       </div>
-      <bar-chart :chart-data="chartdata" :options="chartOptions"></bar-chart>
+      <SimulationChart :data="chartdata"></SimulationChart>
     </section>
     <section class="text-center lead my-3">
       <h1 class="d-none">
@@ -106,7 +106,7 @@
 <script>
 import Institution from "../lib/Institution";
 import _ from "lodash";
-import BarChart from "@/components/Charts/Bar";
+import SimulationChart from "@/components/SimulationChart";
 
 const labels = [
   900,
@@ -143,7 +143,7 @@ const chartdataSample = {
 export default {
   name: "home",
   components: {
-    BarChart,
+    SimulationChart,
   },
   data: () => {
     let value = {
@@ -154,21 +154,6 @@ export default {
         "me mettre à mis-temps.",
       ],
       chartdata: chartdataSample,
-      chartOptions: {
-        maintainAspectRatio: false,
-        scales: {
-          xAxes: [
-            {
-              stacked: true,
-            },
-          ],
-          yAxes: [
-            {
-              stacked: true,
-            },
-          ],
-        },
-      },
     };
     const types = ["prestationsNationales", "partenairesLocaux"];
     types.forEach(function (type) {

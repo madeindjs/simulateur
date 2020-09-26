@@ -78,7 +78,7 @@
         >.
       </p>
 
-      <bar-chart :chart-data="chartData" :options="chartOptions"></bar-chart>
+      <SimulationChart :data="chartData"></SimulationChart>
 
       <div
         class="text-warning print-hidden"
@@ -120,8 +120,9 @@
 
 <script>
 import _ from "lodash";
-import BarChart from "./../../components/Charts/Bar";
-import SimulationTable from "./../../components/SimulationTable";
+import BarChart from "@/components/Charts/Bar";
+import SimulationTable from "@/components/SimulationTable";
+import SimulationChart from "@/components/SimulationChart";
 import axios from "axios";
 
 export default {
@@ -134,29 +135,11 @@ export default {
       showPrivate: false,
       chartData: null,
       tableData: null,
-      chartOptions: {
-        // height: '400px',
-        // position: 'relative',
-        // responsive: false,
-        maintainAspectRatio: false,
-        scales: {
-          xAxes: [
-            {
-              stacked: true,
-            },
-          ],
-          yAxes: [
-            {
-              stacked: true,
-            },
-          ],
-        },
-      },
     };
   },
   components: {
-    BarChart,
     SimulationTable,
+    SimulationChart,
   },
   computed: {
     droits: function () {
