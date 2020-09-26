@@ -176,7 +176,8 @@ exports.getSimulationsData = async function(req, res, next) {
     const tableData = [];
 
     for (const result of results) {
-        const aides = result.aides.droitsEligibles.filter(d => Number.isInteger(d.montant)).reduce((acc, d) => acc + Number(d.montant), 0)
+        const aidesList = result.aides.droitsEligibles.filter(d => Number.isInteger(d.montant));
+        const aides = aidesList.reduce((acc, d) => acc + Number(d.montant), 0)
         const menage = result.menages._;
         const demandeur = result.individus.demandeur;
 
@@ -188,7 +189,7 @@ exports.getSimulationsData = async function(req, res, next) {
         chartData.labels.push(salaireNet);
         revenuDisponibleDataset.data.push(revenuDisponible);
         aidesDataset.data.push(aides);
-        tableData.push({aides, salaireNet, revenuDisponible})
+        tableData.push({aides, salaireNet, revenuDisponible, aidesList})
     }
 
     chartData.datasets = [
