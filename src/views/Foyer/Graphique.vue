@@ -38,7 +38,17 @@
     </div>
 
     <div v-if="chartData">
+      <p>
+        Le graphique ci-dessous montre votre revenu disponible et les aides pour
+        chaque salaire mensuel net.
+      </p>
       <SimulationChart :data="chartData"></SimulationChart>
+      <hr />
+      <p>
+        Le graphique ci dessous montre la différence mensuelle nette de de votre
+        revenu disponible et de vos aides par rapport au précédent salaire.
+      </p>
+      <SimulationDiffChart :data="tableData"></SimulationDiffChart>
 
       <h2>Résumé de votre simulation</h2>
       <SimulationSummary :data="tableData"></SimulationSummary>
@@ -66,7 +76,7 @@
           </router-link>
         </p>
       </div>
-      <h2>Détails de votre simulation</h2>
+      <h2 class="mt-5">Détails de votre simulation</h2>
 
       <p>
         Ci-dessous un tableau récapitulatifs des données utilisées dans le
@@ -84,6 +94,7 @@ import _ from "lodash";
 import BarChart from "@/components/Charts/Bar";
 import SimulationTable from "@/components/SimulationTable";
 import SimulationChart from "@/components/SimulationChart";
+import SimulationDiffChart from "@/components/SimulationDiffChart";
 import SimulationSummary from "@/components/SimulationSummary";
 import axios from "axios";
 
@@ -102,6 +113,7 @@ export default {
   components: {
     SimulationTable,
     SimulationChart,
+    SimulationDiffChart,
     SimulationSummary,
   },
   computed: {

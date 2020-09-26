@@ -118,11 +118,10 @@ function getAverage(array) {
  * @param {NextFunction} next
  */
 exports.getSimulationsData = async function(req, res, next) {
-
-    console.log(req.situation)
     if (req.situation?._id === undefined) {
         return res.status(500).send("SituationId not defined");
     }
+    const year = new Date().getFullYear().toString()
 
     /**
      * @type {Array}
@@ -182,8 +181,9 @@ exports.getSimulationsData = async function(req, res, next) {
         const demandeur = result.individus.demandeur;
 
         const salaireNet = getAverageObject(demandeur.salaire_net);
+        console.log(menage.revenu_disponible)
         const revenuDisponible = Math.floor(
-            getAverageObject(menage.revenu_disponible) / 12
+            menage.revenu_disponible[year] / 12
         );
 
         chartData.labels.push(salaireNet);

@@ -11,15 +11,18 @@
       <h1 class="d-none">
         Evaluez votre pouvoir d'achat si vos revenus changent.
       </h1>
-      <a class="btn btn-primary btn-lg" v-on:click="newSituation()">{{
-        ctaLabel
-      }}</a>
-      <a
-        class="btn btn-primary btn-lg"
-        v-on:click="next()"
-        v-if="hasExistingSituation"
-        >Reprendre la simulation</a
-      >
+
+      <div class="btn-group">
+        <a class="btn btn-primary btn-lg" v-on:click="newSituation()">{{
+          ctaLabel
+        }}</a>
+        <a
+          class="btn btn-secondary btn-lg"
+          v-on:click="next()"
+          v-if="hasExistingSituation"
+          >Reprendre la simulation</a
+        >
+      </div>
     </section>
     <hr class="my-5" />
     <section class="lead">
@@ -75,9 +78,7 @@
         d'ailleurs
         <a href="https://mes-aides.org/ameliorer">contribuer au projet</a>.
       </p>
-      <p class="lead">
-        Qu'en est'il de la sécurité des données ?
-      </p>
+      <p class="lead">Qu'en est'il de la sécurité des données ?</p>
       <p>
         Notre formulaie ne requiert aucune information personnelle permettant de
         relier votre situation à votre iddentité.

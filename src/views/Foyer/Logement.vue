@@ -60,7 +60,7 @@
         v-for="locationType in locationTypes"
         v-bind:key="locationType.id"
       >
-        <label class="radio">
+        <label class="form-check">
           <input
             type="radio"
             name="locationType"
@@ -116,24 +116,30 @@
       >
     </YesNoQuestion>
 
-    <label v-if="captureLoyer" class="form-group">
-      {{ loyerLabel }}
-      <input type="number" v-select-on-click v-model.number="menage.loyer" />
-    </label>
+    <div v-if="captureLoyer" class="form-group">
+      <label>{{ loyerLabel }}</label>
+      <input
+        type="number"
+        v-select-on-click
+        v-model.number="menage.loyer"
+        class="form-group"
+      />
+    </div>
 
     <p v-if="logement.type == 'proprietaire'">
       Laissez ce champ à 0 € si vous ne remboursez pas actuellement de crédit
       pour votre logement.
     </p>
 
-    <label v-if="captureCharges" class="form-group">
-      Vos charges locatives
+    <div v-if="captureCharges" class="form-group">
+      <label>Vos charges locatives</label>
       <input
         type="number"
+        class="form-group"
         v-select-on-click
         v-model.number="menage.charges_locatives"
       />
-    </label>
+    </div>
 
     <YesNoQuestion
       class="form-group"
