@@ -51,7 +51,7 @@
           </div>
         </fieldset>
       </div>
-      <div class="text-right" v-if="!isInCouple">
+      <div class="text-right mt-5 pt-2 border-top" v-if="!isInCouple">
         <button
           type="submit"
           class="btn btn-lg btn-primary"

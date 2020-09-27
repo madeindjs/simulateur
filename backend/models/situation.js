@@ -140,11 +140,27 @@ SituationSchema.methods.compute = function() {
     });
 };
 
+const STEP = 100
+
+SituationSchema.methods.jobsCount = function() {
+    console.log('jobsCount')
+    const { salaire_net } = this.demandeur
+    const salaire = Math.max(...Object.values(salaire_net))
+    const startSalaire = salaire * 0.5;
+    const endSalaire = salaire * 2;
+
+    let count = 0;
+
+    for (let i = startSalaire; i < endSalaire; i += STEP) {
+        count++;
+    }
+    return count;
+}
+
 /**
  * @returns {Number} qty of jobs created
  */
 function createSimulationJobs(situation) {
-    const STEP = 100
     const { salaire_net } = situation.demandeur
     const salaire = Math.max(...Object.values(salaire_net))
 
@@ -158,8 +174,8 @@ function createSimulationJobs(situation) {
 
 SituationSchema.pre('save', function(next) {
     if (!this.isNew) { return next(); }
-    createSimulationJobs(situation);
     var situation = this;
+    createSimulationJobs(situation);
     utils.generateToken()
         .then(function(token) {
             situation.token = token;

@@ -118,6 +118,12 @@ function getAverage(array) {
  * @param {NextFunction} next
  */
 exports.getSimulationsData = async function(req, res, next) {
+    if (req.situation?._id === undefined) {
+        return res.status(500).send("SituationId not defined");
+    }
+    const year = new Date().getFullYear().toString();
+
+
     /**
      * @type {Array}
      */
@@ -137,6 +143,7 @@ exports.getSimulationsData = async function(req, res, next) {
         )
         .sort({ "individus.demandeur.salaire_net": 1 })
         .toArray();
+    const complete = req.situation.jobsCount() === results.length;
 
     /**
      * @type {Chart.ChartDataSets}
@@ -163,30 +170,35 @@ exports.getSimulationsData = async function(req, res, next) {
         labels: [],
         datasets: [],
         barPercentage: 1
-
     };
+    /**
+     * @type {Array<{salaireNet: number; aides: number; revenuDisponible: number}>}
+     */
+    const tableData = [];
 
     for (const result of results) {
-        const aides = result.aides.droitsEligibles.filter(d => Number.isInteger(d.montant)).reduce((acc, d) => acc + Number(d.montant), 0)
+        const aidesList = result.aides.droitsEligibles.filter(d => Number.isInteger(d.montant));
+        const aides = aidesList.reduce((acc, d) => acc + Number(d.montant), 0)
         const menage = result.menages._;
         const demandeur = result.individus.demandeur;
 
         const salaireNet = getAverageObject(demandeur.salaire_net);
         const revenuDisponible = Math.floor(
-            getAverageObject(menage.revenu_disponible) / 12
+            menage.revenu_disponible[year] / 12
         );
 
         chartData.labels.push(salaireNet);
         revenuDisponibleDataset.data.push(revenuDisponible);
         aidesDataset.data.push(aides);
+        tableData.push({aides, salaireNet, revenuDisponible, aidesList})
     }
 
     chartData.datasets = [
         revenuDisponibleDataset,
-        aidesDataset
+        aidesDataset,
     ];
 
-    return res.json(chartData);
+    return res.json({chartData, tableData, complete});
 };
 
 exports.openfiscaTrace = function(req, res, next) {

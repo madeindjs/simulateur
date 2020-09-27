@@ -11,7 +11,7 @@
       <RessourceExploitantAgricole v-if="type.meta.id === 'tns_benefice_exploitant_agricole'" v-bind:individu="type.individu" v-bind:ressource="type"/>
     </div>
 
-    <div class="next form-group">
+    <div class="next  mt-5 pt-2 border-top">
       <router-link tag="button" type="button" class="btn btn-secondary"
         v-bind:to="{ name: 'ressources/types', params:$route.params }">
         Déclarer d'autres ressources

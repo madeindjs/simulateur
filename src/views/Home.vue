@@ -5,21 +5,24 @@
         <p>Est-ce que ça vaut le coup de</p>
         <textra :data="words" :timer="3" filter="flip" :infinite="true" />
       </div>
-      <bar-chart :chart-data="chartdata" :options="chartOptions"></bar-chart>
+      <SimulationChart :data="chartdata"></SimulationChart>
     </section>
     <section class="text-center lead my-3">
       <h1 class="d-none">
         Evaluez votre pouvoir d'achat si vos revenus changent.
       </h1>
-      <a class="btn btn-primary btn-lg" v-on:click="newSituation()">{{
-        ctaLabel
-      }}</a>
-      <a
-        class="btn btn-primary btn-lg"
-        v-on:click="next()"
-        v-if="hasExistingSituation"
-        >Reprendre la simulation</a
-      >
+
+      <div class="btn-group">
+        <a class="btn btn-primary btn-lg" v-on:click="newSituation()">{{
+          ctaLabel
+        }}</a>
+        <a
+          class="btn btn-secondary btn-lg"
+          v-on:click="next()"
+          v-if="hasExistingSituation"
+          >Reprendre la simulation</a
+        >
+      </div>
     </section>
     <hr class="my-5" />
     <section class="lead">
@@ -75,9 +78,7 @@
         d'ailleurs
         <a href="https://mes-aides.org/ameliorer">contribuer au projet</a>.
       </p>
-      <p class="lead">
-        Qu'en est'il de la sécurité des données ?
-      </p>
+      <p class="lead">Qu'en est'il de la sécurité des données ?</p>
       <p>
         Notre formulaie ne requiert aucune information personnelle permettant de
         relier votre situation à votre iddentité.
@@ -95,10 +96,13 @@
         >. Le code est sous
         <a href="https://www.gnu.org/licenses/agpl-3.0.html">license libre</a>
         ce qui signifie que vous pouvez l'éditer, le modifier et même le
-        redistribuer.
+        redistribuer sous la même license.
       </p>
       <p class="lead">Combien ça coute ?</p>
-      <p>TODO</p>
+      <p>
+        $PROJECT_NAME est un projet libre et totalement gratuit. Considerez un
+        dont pour que soutenir le projet.
+      </p>
     </section>
   </div>
 </template>
@@ -106,7 +110,7 @@
 <script>
 import Institution from "../lib/Institution";
 import _ from "lodash";
-import BarChart from "@/components/Charts/Bar";
+import SimulationChart from "@/components/SimulationChart";
 
 const labels = [
   900,
@@ -143,7 +147,7 @@ const chartdataSample = {
 export default {
   name: "home",
   components: {
-    BarChart,
+    SimulationChart,
   },
   data: () => {
     let value = {
@@ -154,21 +158,6 @@ export default {
         "me mettre à mis-temps.",
       ],
       chartdata: chartdataSample,
-      chartOptions: {
-        maintainAspectRatio: false,
-        scales: {
-          xAxes: [
-            {
-              stacked: true,
-            },
-          ],
-          yAxes: [
-            {
-              stacked: true,
-            },
-          ],
-        },
-      },
     };
     const types = ["prestationsNationales", "partenairesLocaux"];
     types.forEach(function (type) {
