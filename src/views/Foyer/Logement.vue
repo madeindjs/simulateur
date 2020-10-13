@@ -122,7 +122,7 @@
         type="number"
         v-select-on-click
         v-model.number="menage.loyer"
-        class="form-group"
+        class="form-control"
       />
     </div>
 
@@ -135,7 +135,7 @@
       <label>Vos charges locatives</label>
       <input
         type="number"
-        class="form-group"
+        class="form-control"
         v-select-on-click
         v-model.number="menage.charges_locatives"
       />
