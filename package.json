@@ -15,7 +15,6 @@
     "eslint": "eslint .",
     "front": "NODE_ENV=front_only npm run serve",
     "predb": "mkdir -p db",
-    "prestart": "npm run build && npm run stats",
     "start": "NODE_ENV=production node server.js",
     "dev": "NODE_ENV=development nodemon server.js",
     "stats": "node backend/lib/stats",
